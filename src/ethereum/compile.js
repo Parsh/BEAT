@@ -5,11 +5,16 @@ const fs = require('fs-extra');
 const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
-const campaignPath = path.resolve(__dirname, 'contracts', 'Campaign.sol');
-const source = fs.readFileSync(campaignPath, 'utf8');
-const output = solc.compile(source).contracts;
+const BEATtoken = path.resolve(__dirname, 'contracts', 'BEATtoken.sol');
+const BEAT_ICO = path.resolve(__dirname, 'contracts', 'BEAT_ICO.sol');
 
-fs.ensureDirSync(buildPath);
+const input = {
+  'BEATtoken.sol': fs.readFileSync(BEATtoken, 'utf8'),
+  'BEAT_ICO.sol': fs.readFileSync(BEAT_ICO, 'utf8')
+};
+
+output = solc.compile({ sources: input }, 1).contracts;
+
 for (let contract in output) {
   fs.outputJSONSync(
     path.resolve(buildPath, contract.replace(':', '') + '.json'),
