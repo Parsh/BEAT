@@ -39,7 +39,12 @@ contract BEAT_ICO{
     function buyTokens(uint _numberOfTokens) public hasTokenSupply(_numberOfTokens) payable {
            
         require(msg.value == mul(_numberOfTokens, tokenPrice), "Price paid is not equal");
-        require(tokenContract.transfer(msg.sender, _numberOfTokens), "Transfer failed");
+        require(tokenContract.transfer(msg.sender, _numberOfTokens), "Buy token transfer failed");
     }
-        
+
+    function endICO() public adminOnly {
+            
+        require(tokenContract.transfer(admin, tokenContract.balanceOf(this)), "End sale transfer failed");
+        selfdestruct(admin);
+    }       
 }
