@@ -1,6 +1,7 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
 const compiledBEATtoken = require('./build/BEATtoken.json');
+const compiledBeatICO = require('./build/BEAT_ICO.json');
 
 const mnemonic =
   'chief outside coast artefact enrich pelican raw top yellow witness slogan glide';
@@ -10,16 +11,17 @@ const networkUrl =
 const provider = new HDWalletProvider(mnemonic, networkUrl);
 const web3 = new Web3(provider);
 
-var accounts, beatToken;
+let accounts, beatToken;
 
-const deploy = async () => {
+const deployBEATtoken = async () => {
   accounts = await web3.eth.getAccounts();
 
   beatToken = await new web3.eth.Contract(
     JSON.parse(compiledBEATtoken.interface)
   )
     .deploy({
-      data: '0x' + compiledBEATtoken.bytecode
+      data: '0x' + compiledBEATtoken.bytecode,
+      arguments: ['100000']
     })
     .send({
       from: accounts[0],
@@ -27,10 +29,29 @@ const deploy = async () => {
     });
 
   console.log(
-    'Contract Deployed! Contract Address: ',
+    'BEAT Token Deployed! Contract Address: ',
     beatToken.options.address
   );
-  //Latest Deployed Campaign Factory Address:
+  //Recently deployed BEATtoken Contract Address:
 };
 
-deploy();
+const deployICO = async () => {
+  const tokenPrice = '10000'; //price of each token in denomination of wei
+
+  const beatICO = await new web3.eth.Contract(
+    JSON.parse(compiledBeatICO.interface)
+  )
+    .deploy({
+      data: '0x' + compiledBeatICO.bytecode,
+      arguments: [beatToken.options.address, tokenPrice]
+    })
+    .send({
+      from: accounts[0],
+      gas: '2000000'
+    });
+
+  console.log('BEAT ICO Deployed! Contract Address: ', beatICO.options.address);
+  //Recently deployed BEAT ICO Contract Address:
+};
+
+deployBEATtoken().then(deployICO);
