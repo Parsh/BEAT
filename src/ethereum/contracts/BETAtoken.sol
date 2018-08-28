@@ -46,4 +46,20 @@ contract BetaToken{
         emit Approve(msg.sender, _spender, _value);
         return true;
     }
+
+
+    function transferFrom(address _from, address _to, uint _value) public returns (bool success){
+        
+        require(_value <= allowance[_from][msg.sender], "Can not transfer more BEATs than allowed");
+        require(_value <= balanceOf[_from], "Sender don't have enough BEATs to transfer");
+        
+        balanceOf[_from] -= _value;
+        balanceOf[_to] += _value;
+        
+        allowance[_from][msg.sender] -= _value;
+        
+        emit Transfer(_from, _to, _value);
+        
+        return true;
+    }
 }
