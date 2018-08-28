@@ -1,6 +1,6 @@
 pragma solidity ^0.4.2;
 
-contract BetaToken{
+contract BEATtoken{
 
     string public name = "BEAT Token";
     string public symbol = "BEAT";
