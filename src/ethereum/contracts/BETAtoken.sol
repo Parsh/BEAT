@@ -24,10 +24,26 @@ contract BetaToken{
         address indexed _owner,
         address indexed _spender,
         uint _value);
-    
 
     constructor(uint _initialSupply) public {
         balanceOf[msg.sender] = _initialSupply;
         totalSupply = _initialSupply;
+    }
+
+    function transfer(address _to, uint _value) public sufficientBalance(_value) returns (bool success){
+    
+        balanceOf[msg.sender] -= _value;
+        balanceOf[_to] += _value;
+        
+        emit Transfer(msg.sender, _to, _value);
+        return true;
+    } 
+    
+    function approve(address _spender, uint _value) public sufficientBalance(_value) returns (bool success){
+        
+        allowance[msg.sender][_spender] = _value;
+        
+        emit Approve(msg.sender, _spender, _value);
+        return true;
     }
 }
