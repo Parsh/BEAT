@@ -1,4 +1,5 @@
 import React from 'react';
+import web3 from '../ethereum/production/web3';
 
 const ICO = props => {
   const jumbotron = (
@@ -39,11 +40,9 @@ const ICO = props => {
   const infoCard = (
     <div className="mt-5">
       <div className="card-body text-center">
-        <h3 className="card-title">
-          <a>BEAT Token</a>
-        </h3>
+        <h3 className="card-title">BEAT Token</h3>
         <h4 className="text-muted mt-3">
-          Token Price: {props.tokenPrice} ether
+          Token Price: {web3.utils.fromWei(props.tokenPrice, 'ether')} ether
         </h4>
         <h5 className="text-muted mt-3 ">
           Tokens Sold: {props.tokensSold}/{props.totalTokens}

@@ -12,7 +12,10 @@ class App extends Component {
     tokensSold: 20500,
     totalTokens: 75000,
     tokenBalance: '',
-    buyTokens: ''
+    buyTokens: '',
+    loading: false,
+    errorMessage: '',
+    successMessage: ''
   };
 
   async componentDidMount() {
@@ -21,7 +24,7 @@ class App extends Component {
     const tokenBalance = await token.methods.balanceOf(accounts[0]).call();
 
     this.setState({
-      tokenPrice: web3.utils.fromWei(tokenPrice, 'ether'),
+      tokenPrice: tokenPrice,
       tokenBalance
     });
   }
@@ -31,7 +34,24 @@ class App extends Component {
   };
 
   onBuy = async () => {
-    console.log(this.state.buyTokens);
+    this.setState({
+      loading: true,
+      errorMessage: '',
+      successMessage: ''
+    });
+
+    const accounts = await web3.eth.getAccounts();
+    await ico.methods.buyTokens(parseInt(this.state.buyTokens, 10)).send({
+      from: accounts[0],
+      value:
+        parseInt(this.state.tokenPrice, 10) * parseInt(this.state.buyTokens, 10)
+    });
+
+    const updatedBalance = await token.methods.balanceOf(accounts[0]).call();
+    this.setState({
+      loading: false,
+      tokenBalance: updatedBalance
+    });
   };
 
   render() {
