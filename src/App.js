@@ -58,18 +58,33 @@ class App extends Component {
       successMessage: ''
     });
 
-    const accounts = await web3.eth.getAccounts();
-    await ico.methods.buyTokens(parseInt(this.state.buyTokens, 10)).send({
-      from: accounts[0],
-      value:
-        parseInt(this.state.tokenPrice, 10) * parseInt(this.state.buyTokens, 10)
-    });
+    try {
+      const accounts = await web3.eth.getAccounts();
+      await ico.methods.buyTokens(parseInt(this.state.buyTokens, 10)).send({
+        from: accounts[0],
+        value:
+          parseInt(this.state.tokenPrice, 10) *
+          parseInt(this.state.buyTokens, 10)
+      });
 
-    const updatedBalance = await token.methods.balanceOf(accounts[0]).call();
-    this.setState({
-      loading: false,
-      tokenBalance: updatedBalance
-    });
+      const updatedBalance = await token.methods.balanceOf(accounts[0]).call();
+      this.setState({
+        loading: false,
+        tokenBalance: updatedBalance,
+        successMessage: `Cheers! ${
+          this.state.buyTokens
+        } BEAT tokens have been successfully transfered to your account.`
+      });
+    } catch (err) {
+      if (
+        err.message ===
+        'No "from" address specified in neither the given options, nor the default options.'
+      ) {
+        err.message =
+          'Metamask (operating over Rinkeby n/w) is required to create campaign! Please check if you are signed into metamask.';
+      }
+      this.setState({ errorMessage: err.message, loadingEnter: false });
+    }
   };
 
   render() {
@@ -77,7 +92,7 @@ class App extends Component {
       <div
         className="alert alert-danger z-depth-2 text-center animated fadeIn"
         role="alert"
-        style={{ fontSize: '25px', marginTop: '75px' }}
+        style={{ fontSize: '20px', marginTop: '75px' }}
       >
         {' '}
         <div className="mt-3 mb-3">
@@ -92,7 +107,7 @@ class App extends Component {
       <div
         className="alert alert-danger z-depth-2 text-center animated fadeIn"
         role="alert"
-        style={{ fontSize: '25px', marginTop: '75px' }}
+        style={{ fontSize: '20px', marginTop: '75px' }}
       >
         <div className="mt-3 mb-3">
           You are on the{' '}
