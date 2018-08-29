@@ -104,6 +104,32 @@ class App extends Component {
       </div>
     ) : null;
 
+    let errorAlert, successAlert;
+
+    if (this.state.errorMessage) {
+      errorAlert = (
+        <div
+          className="alert alert-danger mt-4 z-depth-2 text-center animated fadeIn"
+          role="alert"
+        >
+          <strong>Error: </strong>
+          {this.state.errorMessage}
+        </div>
+      );
+    }
+
+    if (this.state.sucessMessage) {
+      successAlert = (
+        <div
+          className="alert alert-success mt-4 z-depth-2 clearfix mb-5 text-center animated fadeIn"
+          style={{ fontSize: '20px' }}
+          role="alert"
+        >
+          {this.state.sucessMessage}
+        </div>
+      );
+    }
+
     return (
       <div>
         <ICO
@@ -111,7 +137,7 @@ class App extends Component {
           onBuy={this.onBuy}
           onInputChange={this.onInputChange}
         />
-        {corsError} {networkError}
+        {corsError} {networkError} {errorAlert} {successAlert}
       </div>
     );
   }
