@@ -1,5 +1,5 @@
 import web3 from './web3';
-import compiledBEAT_ICO from './build/compiledBEAT_ICO';
+import compiledBEAT_ICO from '../build/BEAT_ICO.json';
 
 const ico = new web3.eth.Contract(
   JSON.parse(compiledBEAT_ICO.interface),

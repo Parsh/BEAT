@@ -1,5 +1,5 @@
 import web3 from './web3';
-import compiledBEATtoken from './build/compiledBEATtoken';
+import compiledBEATtoken from '../build/BEATtoken.json';
 
 const token = new web3.eth.Contract(
   JSON.parse(compiledBEATtoken.interface),
