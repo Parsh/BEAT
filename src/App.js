@@ -112,14 +112,14 @@ class App extends Component {
       <div
         className="alert alert-danger z-depth-2 text-center animated fadeIn"
         role="alert"
-        style={{ fontSize: '22px', marginTop: '75px' }}
       >
-        <div className="mt-3 mb-3">
+        <div>
           You are on the{' '}
           <strong>{this.state.otherNetwork.toUpperCase()}</strong> network. At
           this moment in time, BEAT tokens are available only on the{' '}
-          <strong>Rinkeby</strong> network. Therefore, in order to buy BEATs,
-          please switch the network in your Metamask extension to Rinkeby.
+          <strong>Rinkeby</strong> network.
+          <br /> Therefore, in order to buy BEATs, please switch the network in
+          your Metamask extension to Rinkeby.
         </div>
       </div>
     ) : null;
@@ -131,7 +131,6 @@ class App extends Component {
         <div
           className="alert alert-danger z-depth-2 text-center animated fadeIn"
           role="alert"
-          style={{ fontSize: '22px' }}
         >
           <strong>Error: </strong>
           {this.state.errorMessage}
@@ -142,8 +141,7 @@ class App extends Component {
     if (this.state.successMessage) {
       successAlert = (
         <div
-          className="alert alert-success mt-5 mb-5 z-depth-2 clearfix mb-5 text-center animated fadeIn"
-          style={{ fontSize: '22px' }}
+          className="alert alert-success z-depth-2  text-center animated fadeIn"
           role="alert"
         >
           {this.state.successMessage}
@@ -158,7 +156,9 @@ class App extends Component {
           onBuy={this.onBuy}
           onInputChange={this.onInputChange}
         />
-        {corsError} {networkError} {errorAlert} {successAlert}
+        <div>
+          {corsError} {networkError} {errorAlert} {successAlert}
+        </div>
       </div>
     );
   }
