@@ -9,8 +9,8 @@ import ico from './ethereum/production/BEAT_ICO';
 class App extends Component {
   state = {
     tokenPrice: '',
-    tokensSold: 20500,
-    totalTokens: 75000,
+    tokensSold: '',
+    initialICOFund: 25000,
     tokenBalance: '',
     buyTokens: '',
     loading: false,
@@ -21,10 +21,15 @@ class App extends Component {
   async componentDidMount() {
     const accounts = await web3.eth.getAccounts();
     const tokenPrice = await ico.methods.tokenPrice().call();
+    const tokensLeft = await token.methods
+      .balanceOf(ico.options.address)
+      .call();
+
     const tokenBalance = await token.methods.balanceOf(accounts[0]).call();
 
     this.setState({
       tokenPrice: tokenPrice,
+      tokensSold: this.state.initialICOFund - parseInt(tokensLeft, 10),
       tokenBalance
     });
   }

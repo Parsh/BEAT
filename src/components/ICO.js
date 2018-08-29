@@ -45,14 +45,14 @@ const ICO = props => {
           Token Price: {web3.utils.fromWei(props.tokenPrice, 'ether')} ether
         </h4>
         <h5 className="text-muted mt-3 ">
-          Tokens Sold: {props.tokensSold}/{props.totalTokens}
+          Tokens Sold: {props.tokensSold}/{props.initialICOFund}
         </h5>
         <div className="progress md-progress mt-3" style={{ height: 10 }}>
           <div
             className="progress-bar progress-bar-striped"
             role="progressbar"
             style={{
-              width: `${(props.tokensSold / props.totalTokens) * 100}%`,
+              width: `${(props.tokensSold / props.initialICOFund) * 100}%`,
               height: '10px'
             }}
           />
