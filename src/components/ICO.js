@@ -45,14 +45,25 @@ const ICO = props => {
               }}
             />
           </div>
-          <button
-            className="btn btn-primary w-25"
-            disabled={props.firefoxCORSError || props.otherNetwork}
-            style={{ fontSize: '15px' }}
-            onClick={props.onBuy}
-          >
-            Buy !
-          </button>
+          {props.loading ? (
+            <button
+              className="btn btn-primary w-25 animated fadeIn"
+              style={{ fontSize: '15px' }}
+              disabled
+            >
+              <i className="fa fa-refresh fa-spin mr-3"> </i>
+              Transfering...
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary w-25"
+              disabled={props.firefoxCORSError || props.otherNetwork}
+              style={{ fontSize: '15px' }}
+              onClick={props.onBuy}
+            >
+              Buy !
+            </button>
+          )}
         </div>
       </div>
     </div>

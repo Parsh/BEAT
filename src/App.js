@@ -83,7 +83,7 @@ class App extends Component {
         err.message =
           'Metamask (operating over Rinkeby n/w) is required to create campaign! Please check if you are signed into metamask.';
       }
-      this.setState({ errorMessage: err.message, loadingEnter: false });
+      this.setState({ errorMessage: err.message, loading: false });
     }
   };
 
@@ -92,7 +92,7 @@ class App extends Component {
       <div
         className="alert alert-danger z-depth-2 text-center animated fadeIn"
         role="alert"
-        style={{ fontSize: '20px', marginTop: '75px' }}
+        style={{ fontSize: '22px', marginTop: '75px' }}
       >
         {' '}
         <div className="mt-3 mb-3">
@@ -107,7 +107,7 @@ class App extends Component {
       <div
         className="alert alert-danger z-depth-2 text-center animated fadeIn"
         role="alert"
-        style={{ fontSize: '20px', marginTop: '75px' }}
+        style={{ fontSize: '22px', marginTop: '75px' }}
       >
         <div className="mt-3 mb-3">
           You are on the{' '}
@@ -124,8 +124,9 @@ class App extends Component {
     if (this.state.errorMessage) {
       errorAlert = (
         <div
-          className="alert alert-danger mt-4 z-depth-2 text-center animated fadeIn"
+          className="alert alert-danger z-depth-2 text-center animated fadeIn"
           role="alert"
+          style={{ fontSize: '22px' }}
         >
           <strong>Error: </strong>
           {this.state.errorMessage}
@@ -133,14 +134,14 @@ class App extends Component {
       );
     }
 
-    if (this.state.sucessMessage) {
+    if (this.state.successMessage) {
       successAlert = (
         <div
-          className="alert alert-success mt-4 z-depth-2 clearfix mb-5 text-center animated fadeIn"
-          style={{ fontSize: '20px' }}
+          className="alert alert-success mt-5 mb-5 z-depth-2 clearfix mb-5 text-center animated fadeIn"
+          style={{ fontSize: '22px' }}
           role="alert"
         >
-          {this.state.sucessMessage}
+          {this.state.successMessage}
         </div>
       );
     }
