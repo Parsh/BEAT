@@ -17,14 +17,21 @@ const ICO = props => {
     <div className="card mt-5">
       <div className="card-body text-center">
         <h2 className="card-title">Buy BEATs</h2>
+        <h4 className="text-muted">You currently have: {props.tokenBalance}</h4>
         <div className="md-form">
           <input
             type="text"
             className="form-control text-center w-75 m-auto"
+            value={props.buyTokens}
+            onChange={event => {
+              props.onInputChange(event);
+            }}
             placeholder="Number of tokens"
           />
         </div>
-        <button className="btn btn-primary w-25">Buy !</button>
+        <button className="btn btn-primary w-25" onClick={props.onBuy}>
+          Buy !
+        </button>
       </div>
     </div>
   );
