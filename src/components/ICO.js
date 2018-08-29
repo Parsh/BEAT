@@ -39,7 +39,7 @@ const ICO = props => {
         <h5 className="text-muted mt-3 ">Tokens Sold: 1000/500000</h5>
         <div className="progress md-progress mt-3" style={{ height: 10 }}>
           <div
-            className="progress-bar"
+            className="progress-bar progress-bar-striped"
             role="progressbar"
             style={{ width: '55%', height: 10 }}
             aria-valuenow={25}
