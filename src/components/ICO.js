@@ -35,16 +35,20 @@ const ICO = props => {
         <h3 className="card-title">
           <a>BEAT Token</a>
         </h3>
-        <h4 className="text-muted mt-3"> Token Price: 10000 wei</h4>
-        <h5 className="text-muted mt-3 ">Tokens Sold: 1000/500000</h5>
+        <h4 className="text-muted mt-3">
+          Token Price: {props.tokenPrice} ether
+        </h4>
+        <h5 className="text-muted mt-3 ">
+          Tokens Sold: {props.tokensSold}/{props.totalTokens}
+        </h5>
         <div className="progress md-progress mt-3" style={{ height: 10 }}>
           <div
             className="progress-bar progress-bar-striped"
             role="progressbar"
-            style={{ width: '55%', height: 10 }}
-            aria-valuenow={25}
-            aria-valuemin={0}
-            aria-valuemax={100}
+            style={{
+              width: `${(props.tokensSold / props.totalTokens) * 100}%`,
+              height: '10px'
+            }}
           />
         </div>
       </div>

@@ -2,20 +2,24 @@ import React, { Component } from 'react';
 import ICO from './components/ICO';
 import './App.css';
 
+import web3 from './ethereum/production/web3';
 import token from './ethereum/production/BEATtoken';
 import ico from './ethereum/production/BEAT_ICO';
 
 class App extends Component {
-  async componentDidMount() {
-    const supply = await token.methods.totalSupply().call();
-    const admin = await ico.methods.admin().call();
+  state = {
+    tokenPrice: '',
+    tokensSold: 20500,
+    totalTokens: 75000
+  };
 
-    console.log('Supply: ', supply);
-    console.log('Admin: ', admin);
+  async componentDidMount() {
+    const tokenPrice = await ico.methods.tokenPrice().call();
+    this.setState({ tokenPrice: web3.utils.fromWei(tokenPrice, 'ether') });
   }
 
   render() {
-    return <ICO />;
+    return <ICO {...this.state} />;
   }
 }
 
