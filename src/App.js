@@ -68,9 +68,14 @@ class App extends Component {
       });
 
       const updatedBalance = await token.methods.balanceOf(accounts[0]).call();
+      const tokensLeft = await token.methods
+        .balanceOf(ico.options.address)
+        .call();
+
       this.setState({
         loading: false,
         tokenBalance: updatedBalance,
+        tokensSold: this.state.initialICOFund - parseInt(tokensLeft, 10),
         successMessage: `Cheers! ${
           this.state.buyTokens
         } BEAT tokens have been successfully transfered to your account.`
