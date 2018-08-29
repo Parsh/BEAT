@@ -3,7 +3,7 @@ import React from 'react';
 const ICO = props => {
   const jumbotron = (
     <div className="jumbotron text-center">
-      <h1 className="h1-reponsive mb-4 blue-text">
+      <h1 className="display-3 mb-4 blue-text">
         <strong>BEAT ICO</strong>
       </h1>
       <p className="h4-responsive">
@@ -14,11 +14,9 @@ const ICO = props => {
   );
 
   const buyCard = (
-    <div className="card">
+    <div className="card mt-5">
       <div className="card-body text-center">
-        <h2 className="card-title">
-          <a>Buy BEATs</a>
-        </h2>
+        <h2 className="card-title">Buy BEATs</h2>
         <div className="md-form">
           <input
             type="text"
@@ -32,7 +30,7 @@ const ICO = props => {
   );
 
   const infoCard = (
-    <div className="">
+    <div className="mt-5">
       <div className="card-body text-center">
         <h3 className="card-title">
           <a>BEAT Token</a>
@@ -43,7 +41,7 @@ const ICO = props => {
           <div
             className="progress-bar"
             role="progressbar"
-            style={{ width: '25%', height: 20 }}
+            style={{ width: '55%', height: 10 }}
             aria-valuenow={25}
             aria-valuemin={0}
             aria-valuemax={100}
@@ -56,7 +54,7 @@ const ICO = props => {
   return (
     <div>
       {jumbotron}
-      <div className="container">
+      <div className="container" style={{ marginTop: '75px' }}>
         <div className="row">
           <div className="col-sm-4">{infoCard}</div>
 
