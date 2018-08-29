@@ -3,7 +3,7 @@ import compiledBEAT_ICO from '../build/BEAT_ICO.json';
 
 const ico = new web3.eth.Contract(
   JSON.parse(compiledBEAT_ICO.interface),
-  '0x8E2eBB526617EBF739d51A40c28c83d13F4d8A95'
+  '0xb788eA06f9878b0a66FeFE30CF43e1185FE7d3e3'
 );
 
 export default ico;

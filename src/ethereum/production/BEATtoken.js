@@ -3,7 +3,7 @@ import compiledBEATtoken from '../build/BEATtoken.json';
 
 const token = new web3.eth.Contract(
   JSON.parse(compiledBEATtoken.interface),
-  '0x2FD5921c285F61E7393A4C24cBa5a70006935EE2'
+  '0x455b29dBE4F80DF21778abba0784077916D6D6A1'
 );
 
 export default token;

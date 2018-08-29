@@ -14,6 +14,8 @@ const web3 = new Web3(provider);
 let accounts, beatToken;
 
 const deployBEATtoken = async () => {
+  const numberOfTokens = '100000';
+
   accounts = await web3.eth.getAccounts();
 
   beatToken = await new web3.eth.Contract(
@@ -21,7 +23,7 @@ const deployBEATtoken = async () => {
   )
     .deploy({
       data: '0x' + compiledBEATtoken.bytecode,
-      arguments: ['100000']
+      arguments: [numberOfTokens]
     })
     .send({
       from: accounts[0],
@@ -32,15 +34,15 @@ const deployBEATtoken = async () => {
     'BEAT Token Deployed! Contract Address: ',
     beatToken.options.address
   );
-  //Recently deployed BEATtoken Contract Address:
+  //Recently deployed BEATtoken Contract Address: 0x455b29dBE4F80DF21778abba0784077916D6D6A1
 };
 
-const deployICO = async () => {
-  const tokenPrice = '10000'; //price of each token in denomination of wei
+let beatICO;
 
-  const beatICO = await new web3.eth.Contract(
-    JSON.parse(compiledBeatICO.interface)
-  )
+const deployICO = async () => {
+  const tokenPrice = '1000000000'; //price of each token in denomination of wei
+
+  beatICO = await new web3.eth.Contract(JSON.parse(compiledBeatICO.interface))
     .deploy({
       data: '0x' + compiledBeatICO.bytecode,
       arguments: [beatToken.options.address, tokenPrice]
@@ -51,7 +53,22 @@ const deployICO = async () => {
     });
 
   console.log('BEAT ICO Deployed! Contract Address: ', beatICO.options.address);
-  //Recently deployed BEAT ICO Contract Address:
+  //Recently deployed BEAT ICO Contract Address: 0xb788eA06f9878b0a66FeFE30CF43e1185FE7d3e3
 };
 
-deployBEATtoken().then(deployICO);
+const fundICO = async () => {
+  await beatToken.methods.transfer(beatICO.options.address, 10000).send({
+    from: accounts[0],
+    gas: '2000000'
+  });
+
+  console.log(
+    `ICO is funded with: ${await beatToken.methods
+      .balanceOf(beatICO.options.address)
+      .call()} tokens`
+  );
+};
+
+deployBEATtoken()
+  .then(deployICO)
+  .then(fundICO);
