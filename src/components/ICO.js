@@ -23,7 +23,7 @@ const ICO = props => {
   );
 
   const buyCard = (
-    <div className="z-depth-5 mt-5 animated fadeIn">
+    <div className="z-depth-4 mt-5 animated fadeIn">
       <div
         className="card"
         style={{
@@ -34,11 +34,11 @@ const ICO = props => {
       >
         <div className="card-body text-center text-white">
           <h2 className="card-title">Buy BEATs</h2>
-          <h4>You currently have: {props.tokenBalance}</h4>
+          <h4>You currently have: {props.tokenBalance} beats</h4>
           <div className="md-form">
             <input
               type="text"
-              className="form-control text-center w-75 m-auto text-white"
+              className="form-control form-control-lg text-center w-75 m-auto text-white"
               value={props.buyTokens}
               onChange={event => {
                 props.onInputChange(event);
@@ -54,7 +54,7 @@ const ICO = props => {
   );
 
   const infoCard = (
-    <div className="z-depth-5 animated fadeIn">
+    <div className="z-depth-4 animated fadeIn">
       <div
         className="card mt-5"
         style={{
@@ -92,7 +92,7 @@ const ICO = props => {
   return (
     <div className="mt-5 mb-5">
       {jumbotron}
-      <div className="container" style={{ marginTop: '75px' }}>
+      <div style={{ marginTop: '75px' }}>
         <div className="row">
           <div className="col-sm-5">{infoCard}</div>
           <div className="col-sm-7">{buyCard}</div>
