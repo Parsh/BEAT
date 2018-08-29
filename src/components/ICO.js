@@ -15,10 +15,10 @@ const ICO = props => {
           <strong>BEAT ICO</strong>
         </h1>
         <p className="h3-responsive container">
-          BEAT is an EIP-20 compliant token that gives you access to the the
+          BEAT is an EIP-20 compliant token that gives you access to the
           decentralized dimensions of music. During the Initial Coin Offering
           phase, we are providing people with BEAT tokens at half of it's
-          concieved price.
+          conceived price.
         </p>
       </div>
     </div>
