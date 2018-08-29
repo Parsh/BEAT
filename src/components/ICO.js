@@ -11,12 +11,14 @@ const ICO = props => {
             'url(https://coolbackgrounds.io/images/backgrounds/compute-83062381.png)'
         }}
       >
-        <h1 className="display-3 mb-4 blue-text">
+        <h1 className="display-3 mb-3 blue-text">
           <strong>BEAT ICO</strong>
         </h1>
-        <p className="h4-responsive mb-5">
-          This is a simple hero unit, a simple jumbotron-style component for
-          calling extra attention to featured content or information.
+        <p className="h3-responsive container">
+          BEAT is an EIP-20 compliant token that gives you access to the the
+          decentralized dimensions of music. During the Initial Coin Offering
+          phase, we are providing people with BEAT tokens at half of it's
+          concieved price.
         </p>
       </div>
     </div>
@@ -111,8 +113,8 @@ const ICO = props => {
       {jumbotron}
       <div style={{ marginTop: '75px' }}>
         <div className="row">
-          <div className="col-sm-5">{infoCard}</div>
-          <div className="col-sm-7">{buyCard}</div>
+          <div className="col-md-5">{infoCard}</div>
+          <div className="col-md-7">{buyCard}</div>
         </div>
       </div>
     </div>
