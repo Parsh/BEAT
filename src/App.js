@@ -15,23 +15,35 @@ class App extends Component {
     buyTokens: '',
     loading: false,
     errorMessage: '',
-    successMessage: ''
+    successMessage: '',
+    firefoxCORSError: false
   };
 
   async componentDidMount() {
-    const accounts = await web3.eth.getAccounts();
-    const tokenPrice = await ico.methods.tokenPrice().call();
-    const tokensLeft = await token.methods
-      .balanceOf(ico.options.address)
-      .call();
+    try {
+      const network = await web3.eth.net.getNetworkType();
+      if (network !== 'rinkeby') {
+        this.setState({ otherNetwork: network });
+      }
 
-    const tokenBalance = await token.methods.balanceOf(accounts[0]).call();
+      const accounts = await web3.eth.getAccounts();
+      const tokenPrice = await ico.methods.tokenPrice().call();
+      const tokensLeft = await token.methods
+        .balanceOf(ico.options.address)
+        .call();
 
-    this.setState({
-      tokenPrice: tokenPrice,
-      tokensSold: this.state.initialICOFund - parseInt(tokensLeft, 10),
-      tokenBalance
-    });
+      const tokenBalance = await token.methods.balanceOf(accounts[0]).call();
+
+      this.setState({
+        tokenPrice: tokenPrice,
+        tokensSold: this.state.initialICOFund - parseInt(tokensLeft, 10),
+        tokenBalance
+      });
+    } catch (err) {
+      if ('Invalid JSON RPC response: ""' === err.message) {
+        this.setState({ firefoxCORSError: true });
+      }
+    }
   }
 
   onInputChange = event => {
@@ -60,12 +72,30 @@ class App extends Component {
   };
 
   render() {
+    let corsError = this.state.firefoxCORSError ? (
+      <div
+        className="alert alert-danger z-depth-2 text-center animated fadeIn"
+        role="alert"
+        style={{ fontSize: '25px', marginTop: '75px' }}
+      >
+        {' '}
+        <div className="mt-3 mb-3">
+          Cross-Origin Request Blocked <strong>@Firefox</strong>.<br />
+          We strongly recommend you to use browsers like Chrome, Brave or any
+          other Wallet-enabled browser in order to interact with Ethstarter.
+        </div>
+      </div>
+    ) : null;
+
     return (
-      <ICO
-        {...this.state}
-        onBuy={this.onBuy}
-        onInputChange={this.onInputChange}
-      />
+      <div>
+        <ICO
+          {...this.state}
+          onBuy={this.onBuy}
+          onInputChange={this.onInputChange}
+        />
+        {corsError}
+      </div>
     );
   }
 }

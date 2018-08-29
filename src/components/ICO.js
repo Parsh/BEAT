@@ -23,7 +23,7 @@ const ICO = props => {
   );
 
   const buyCard = (
-    <div className="z-depth-4 mt-5 animated fadeIn">
+    <div className="z-depth-5 mt-5 animated fadeIn">
       <div
         className="card"
         style={{
@@ -33,8 +33,8 @@ const ICO = props => {
         }}
       >
         <div className="card-body text-center text-white">
-          <h2 className="card-title">Buy BEATs</h2>
-          <h4>You currently have: {props.tokenBalance} beats</h4>
+          <h1 className="card-title">Buy BEATs</h1>
+          <h4>You currently have: {props.tokenBalance || '__'} beats</h4>
           <div className="md-form">
             <input
               type="text"
@@ -45,7 +45,11 @@ const ICO = props => {
               }}
             />
           </div>
-          <button className="btn btn-primary" onClick={props.onBuy}>
+          <button
+            className="btn btn-primary w-25"
+            style={{ fontSize: '15px' }}
+            onClick={props.onBuy}
+          >
             Buy !
           </button>
         </div>
@@ -54,17 +58,18 @@ const ICO = props => {
   );
 
   const infoCard = (
-    <div className="z-depth-4 animated fadeIn">
+    <div className="z-depth-5 animated fadeIn">
       <div
         className="card mt-5"
         style={{
           backgroundImage:
             'url(https://coolbackgrounds.io/images/backgrounds/compute-83062381.png)',
-          backgroundPosition: 'right'
+          backgroundPosition: 'right',
+          height: '260px'
         }}
       >
-        <div className="card-body text-center text-white">
-          <h2 className="card-title">BEAT Token</h2>
+        <div className="card-body text-center text-white mt-3">
+          <h1 className="card-title">BEAT Token</h1>
           <h3 className="mt-3">
             Token Price: {web3.utils.fromWei(props.tokenPrice, 'ether')} ether
           </h3>
